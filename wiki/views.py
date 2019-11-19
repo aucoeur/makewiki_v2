@@ -45,5 +45,5 @@ class PageNewView(FormView):
       form = PageForm(request.POST)
       if form.is_valid():
         article = form.save()
-        return HttpResponseRedirect(reverse_lazy('wiki-details-page', args=[article.slug]))
+        return HttpResponseRedirect(reverse_lazy('wiki-details-page', args = [article.slug]))
       return render(request, 'new_page.html', {'form': form})
