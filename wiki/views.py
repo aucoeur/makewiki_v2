@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponseRedirect
+from django.urls import reverse_lazy
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import FormView
@@ -38,3 +39,11 @@ class PageNewView(FormView):
   def get(self, request):
     form = PageForm()
     return render(request, 'new_page.html', {'form': form})
+  
+  def post(self, request):
+    if request.method == 'POST':
+      form = PageForm(request.POST)
+      if form.is_valid():
+        article = form.save()
+        return HttpResponseRedirect(reverse_lazy('wiki-details-page', args=[article.slug]))
+      return render(request, 'new_page.html', {'form': form})
