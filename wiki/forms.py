@@ -8,5 +8,5 @@ class PageForm(forms.ModelForm):
         model = Page
         fields = '__all__'
 
-    def clean(self):
-        cleaned_data = super(PageForm, self).clean()
+    # def clean(self):
+    #     cleaned_data = super(PageForm, self).clean()

@@ -2,7 +2,8 @@ from django.shortcuts import render, HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from django.views.generic.edit import FormView
+from django.views.generic.edit import CreateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from wiki.models import Page
 from wiki.forms import PageForm
@@ -30,19 +31,21 @@ class PageDetailView(DetailView):
           'page': page
         })
 
-class PageNewView(FormView):
+class PageNewView(LoginRequiredMixin, CreateView):
+# class PageNewView(CreateView):
   """ Renders a Create New Page Form """
-  template = 'new_page.html'
+  login_url = '/accounts/login'
+  template_name = 'new_page.html'
   form_class = PageForm
   success_url = '' 
 
   def get(self, request):
     form = PageForm()
     return render(request, 'new_page.html', {'form': form})
-  
+
   def post(self, request):
     if request.method == 'POST':
-      form = PageForm(request.POST)
+      form = PageForm(data=request.POST)
       if form.is_valid():
         article = form.save()
         return HttpResponseRedirect(reverse_lazy('wiki-details-page', args = [article.slug]))
