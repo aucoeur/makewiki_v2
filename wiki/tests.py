@@ -84,10 +84,12 @@ class CreatePageFormTests(TestCase):
 
         form_data = {
             "title": "This Is My Hair",
-            "author": user,
-            "content": "I dont wear wigs.",
+            "author": user.id,
+            "content": "I dont wear wigs."
         }
 
-        # Figure out how to get 302
-        response = self.client.post(reverse_lazy('wiki-details-page', args=['this-is-my-hair']), data=form_data, follow=True)
+        response = self.client.post('/new', data = form_data)
         self.assertEqual(response.status_code, 302)
+
+        page = Page.objects.get(title='This Is My Hair')
+        self.assertEqual(page.content, 'I dont wear wigs.')

@@ -31,8 +31,8 @@ class PageDetailView(DetailView):
           'page': page
         })
 
-class PageNewView(LoginRequiredMixin, CreateView):
-# class PageNewView(CreateView):
+# class PageNewView(LoginRequiredMixin, CreateView):
+class PageNewView(CreateView):
   """ Renders a Create New Page Form """
   login_url = '/accounts/login'
   template_name = 'new_page.html'
