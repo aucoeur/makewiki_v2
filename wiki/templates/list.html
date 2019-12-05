@@ -1,8 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
+{% load static %}
   <h3>Wikis {% if pages %}<small class="text-muted">({{ pages|length }} Page{{ pages|length|pluralize:"s" }})</small>{% endif %}</h3>
   <hr>
+  <center><img src="{% static 'makewiki/violet_s8_finale.JPG' %}" width="50%" height="50%"></center>
+  <br /><br />
   {% if pages %}
     <div class="card-columns">
       {% for page in pages %}

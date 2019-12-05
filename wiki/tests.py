@@ -4,7 +4,7 @@ from django.test import TestCase
 from django.contrib.auth.models import User
 from wiki.models import Page
 from wiki.views import PageForm
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 
 # Create your tests here.
 
@@ -78,6 +78,7 @@ class CreatePageFormTests(TestCase):
         # Figure out how to fix this with the new login required stuff
         response = self.client.get('/new')
         self.assertEqual(response.status_code, 200)
+        # self.assertRedirects(response, reverse('login'))
 
     def test_form_entry(self):
         user = User.objects.create()
