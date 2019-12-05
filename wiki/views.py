@@ -4,6 +4,7 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.utils import timezone
 
 from wiki.models import Page
 from wiki.forms import PageForm
@@ -15,7 +16,7 @@ class PageListView(ListView):
 
     def get(self, request):
         """ GET a list of Pages. """
-        pages = self.get_queryset().all()
+        pages = self.get_queryset().all().order_by('-created')
         return render(request, 'list.html', {
           'pages': pages
         })
