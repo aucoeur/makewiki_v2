@@ -8,11 +8,7 @@ verify_ssl = true
 [packages]
 pytz = "==2019.3"
 sqlparse = "==0.3.0"
-<<<<<<< HEAD
 Django = ">=2.2.9"
-=======
-Django = "==2.2.8"
->>>>>>> b90c45692046630711b159f63613b874d56faa93
 gunicorn = "*"
 
 [requires]
